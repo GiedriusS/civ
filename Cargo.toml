@@ -1,0 +1,6 @@
+[package]
+name = "civ"
+version = "0.1.0"
+authors = ["Giedrius Statkevičius <giedriuswork@gmail.com>"]
+
+[dependencies]
