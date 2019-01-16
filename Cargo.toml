@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = ["Giedrius Statkevičius <giedriuswork@gmail.com>"]
 
 [dependencies]
+serde = "1.0"
+serde_yaml = "0.8"
+clap = "2.32.0"
+svg = "0.5.12"
