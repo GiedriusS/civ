@@ -1,15 +1,22 @@
+#[macro_use]
 extern crate clap;
 
 use clap::{Arg, App};
 
 // Supported input formats
-enum InputFormat {
-    DRONE
+arg_enum!{
+    #[derive(PartialEq)]
+    pub enum InputFormat {
+        DRONE
+    }
 }
 
 // Supported output formats
-enum OutputFormat {
-    SVG
+arg_enum!{
+    #[derive(PartialEq)]
+    pub enum OutputFormat {
+        SVG
+    }
 }
 
 fn main() {
@@ -29,7 +36,21 @@ fn main() {
                             .long("ifmt")
                             .value_name("FORMAT")
                             .help("Sets the input format to use")
-                            .takes_value(true)
+                            .possible_values(&InputFormat::variants())
+                            .required(true))
+                        .arg(Arg::with_name("OUTPUT")
+                            .short("o")
+                            .long("output")
+                            .value_name("FILE")
+                            .help("Sets the output file to use")
+                            .required(true)
+                            .takes_value(true))
+                        .arg(Arg::with_name("OUTPUTFMT")
+                            .short("m")
+                            .long("ofmt")
+                            .value_name("FORMAT")
+                            .help("Sets the output format to use")
+                            .possible_values(&OutputFormat::variants())
                             .required(true))
                         .arg(Arg::with_name("v")
                             .short("v")
