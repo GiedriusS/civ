@@ -2,20 +2,13 @@ extern crate svg;
 
 mod svgir {
     use super::svg::Node;
+    use ir::common::steps::{MultipleStep, SingleStep};
 
     // Size of the space in pixels between text of multiple steps on the X axis.
     pub const MULTIPLE_STEP_SPACE: i32 = 100;
 
     pub trait StepViewer {
         fn view(&self) -> Box<svg::Node>;
-    }
-
-    pub struct SingleStep<'a> {
-        pub name: &'a str
-    }
-
-    pub struct MultipleStep<'a> {
-        pub name: &'a [&'a str]
     }
 
     impl<'a> StepViewer for SingleStep<'a> {
@@ -46,13 +39,14 @@ mod svgir {
 
 #[cfg(test)]
 mod tests {
-    use super::svgir::{SingleStep, MultipleStep, StepViewer};
+    use super::svgir::StepViewer;
+    use ir::common::steps::{MultipleStep, SingleStep};
 
     #[test]
     fn single_step() {
         let step = SingleStep { name: "test" };
         let n = step.view();
-        assert_eq!(n.to_string(), "<text>\ntest\n</text>");   
+        assert_eq!(n.to_string(), "<text>\ntest\n</text>");
     }
 
     #[test]
@@ -60,6 +54,9 @@ mod tests {
         let args = ["a", "b"];
         let step = MultipleStep { name: &args[..] };
         let n = step.view();
-        assert_eq!(n.to_string(), "<g>\n<text x=\"0\">\na\n</text>\n<text x=\"100\">\nb\n</text>\n</g>");   
+        assert_eq!(
+            n.to_string(),
+            "<g>\n<text x=\"0\">\na\n</text>\n<text x=\"100\">\nb\n</text>\n</g>"
+        );
     }
 }
