@@ -1,9 +1,17 @@
 pub mod steps {
-    pub struct SingleStep<'a> {
-        pub name: &'a str,
+    #[derive(Debug)]
+    pub struct SingleStep {
+        pub name: String,
     }
 
-    pub struct MultipleStep<'a> {
-        pub name: &'a [&'a str],
+    #[derive(Debug)]
+    pub struct MultipleStep {
+        pub name: Box<[String]>,
+    }
+
+    #[derive(Debug)]
+    pub enum Step {
+        S(SingleStep),
+        M(MultipleStep),
     }
 }
