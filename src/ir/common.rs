@@ -1,12 +1,13 @@
 pub mod steps {
     #[derive(Debug)]
     pub struct SingleStep {
-        pub name: String,
+        pub step: String,
     }
 
     #[derive(Debug)]
     pub struct MultipleStep {
-        pub name: Vec<Box<String>>,
+        pub steps: Vec<Box<String>>,
+        pub name: String, // Not used at the moment
     }
 
     #[derive(Debug)]

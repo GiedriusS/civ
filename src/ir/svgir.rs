@@ -14,7 +14,7 @@ mod svgir {
     impl StepViewer for SingleStep {
         fn view(&self) -> Box<svg::Node> {
             let mut t = svg::node::element::Text::new();
-            t.append(svg::node::Text::new(self.name.clone()));
+            t.append(svg::node::Text::new(self.step.clone()));
             Box::new(t)
         }
     }
@@ -23,7 +23,7 @@ mod svgir {
         fn view(&self) -> Box<svg::Node> {
             let mut g = svg::node::element::Group::new();
             let mut x = 0;
-            for n in &self.name[..] {
+            for n in &self.steps[..] {
                 let mut t = svg::node::element::Text::new();
                 t.append(svg::node::Text::new(*n.clone()));
                 t = t.set("x", x);
@@ -45,7 +45,7 @@ mod tests {
     #[test]
     fn single_step() {
         let step = SingleStep {
-            name: "test".to_string(),
+            step: "test".to_string(),
         };
         let n = step.view();
         assert_eq!(n.to_string(), "<text>\ntest\n</text>");
@@ -56,7 +56,10 @@ mod tests {
         let mut v = Vec::new();
         v.push(Box::new("a".to_string()));
         v.push(Box::new("b".to_string()));
-        let step = MultipleStep { name: v };
+        let step = MultipleStep {
+            steps: v,
+            name: "foo".to_string(),
+        };
         let n = step.view();
         assert_eq!(
             n.to_string(),

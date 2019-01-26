@@ -33,7 +33,10 @@ mod parser {
                     // Create a new one.
                     let mut s = Vec::new();
                     s.push(Box::new(ppk.to_string()));
-                    ret.push(Box::new(Step::M(MultipleStep { name: s })));
+                    ret.push(Box::new(Step::M(MultipleStep {
+                        steps: s,
+                        name: ppgroup.to_string(),
+                    })));
                     last_group_name = ppgroup.to_string();
                 } else {
                     // Append to the last one a new key.
@@ -41,14 +44,14 @@ mod parser {
                     let mut last = &mut *ret[last_el];
                     match last {
                         Step::M(ref mut m) => {
-                            m.name.push(Box::new(ppk.to_string()));
+                            m.steps.push(Box::new(ppk.to_string()));
                         }
                         _ => return Err("expected to match a multistep"),
                     }
                 }
             } else {
                 let s = Box::new(Step::S(SingleStep {
-                    name: ppk.to_string(),
+                    step: ppk.to_string(),
                 }));
                 ret.push(s);
                 last_group_name = "".to_string();
@@ -105,9 +108,10 @@ pipeline:
                 assert_eq!(res.len(), 1);
                 match &*res[0] {
                     Step::M(m) => {
-                        assert_eq!(m.name.len(), 2);
-                        assert_eq!(*m.name[0], "step1");
-                        assert_eq!(*m.name[1], "step2");
+                        assert_eq!(m.steps.len(), 2);
+                        assert_eq!(*m.steps[0], "step1");
+                        assert_eq!(*m.steps[1], "step2");
+                        assert_eq!(m.name, "a");
                     }
                     _ => panic!("got unexpected type"),
                 }
