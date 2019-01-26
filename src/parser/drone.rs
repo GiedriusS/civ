@@ -41,7 +41,7 @@ mod parser {
                     let mut last = &mut *ret[last_el];
                     match last {
                         Step::M(ref mut m) => {
-                            m.name.push(Box::new("test".to_string()));
+                            m.name.push(Box::new(ppk.to_string()));
                         }
                         _ => return Err("expected to match a multistep"),
                     }
@@ -61,7 +61,7 @@ mod parser {
 #[cfg(test)]
 mod tests {
     use super::parser;
-    use ir::common::steps::{MultipleStep, SingleStep, Step};
+    use ir::common::steps::Step;
 
     #[test]
     fn simple_case() {
