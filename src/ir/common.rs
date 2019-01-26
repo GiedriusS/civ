@@ -6,7 +6,7 @@ pub mod steps {
 
     #[derive(Debug)]
     pub struct MultipleStep {
-        pub name: Box<[String]>,
+        pub name: Vec<Box<String>>,
     }
 
     #[derive(Debug)]

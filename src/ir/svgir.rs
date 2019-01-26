@@ -25,7 +25,7 @@ mod svgir {
             let mut x = 0;
             for n in &self.name[..] {
                 let mut t = svg::node::element::Text::new();
-                t.append(svg::node::Text::new(n.clone()));
+                t.append(svg::node::Text::new(*n.clone()));
                 t = t.set("x", x);
                 g.append(t);
 
@@ -53,9 +53,10 @@ mod tests {
 
     #[test]
     fn multiple_step() {
-        let step = MultipleStep {
-            name: Box::new(["a".to_string(), "b".to_string()]),
-        };
+        let mut v = Vec::new();
+        v.push(Box::new("a".to_string()));
+        v.push(Box::new("b".to_string()));
+        let step = MultipleStep { name: v };
         let n = step.view();
         assert_eq!(
             n.to_string(),
