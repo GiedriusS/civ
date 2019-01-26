@@ -51,6 +51,7 @@ mod parser {
                     name: ppk.to_string(),
                 }));
                 ret.push(s);
+                last_group_name = "".to_string();
             }
         }
 
