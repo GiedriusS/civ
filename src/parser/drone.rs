@@ -105,6 +105,8 @@ pipeline:
                 match &*res[0] {
                     Step::M(m) => {
                         assert_eq!(m.name.len(), 2);
+                        assert_eq!(*m.name[0], "step1");
+                        assert_eq!(*m.name[1], "step2");
                     }
                     _ => panic!("got unexpected type"),
                 }
