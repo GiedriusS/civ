@@ -1,6 +1,6 @@
 extern crate svg;
 
-mod svgir {
+pub mod svgir {
     use super::svg::Node;
     use ir::common::steps::{MultipleStep, SingleStep};
 
@@ -8,11 +8,11 @@ mod svgir {
     pub const MULTIPLE_STEP_SPACE: i32 = 100;
 
     pub trait StepViewer {
-        fn view(&self) -> Box<svg::Node>;
+        fn view(&self) -> Box<dyn svg::Node>;
     }
 
     impl StepViewer for SingleStep {
-        fn view(&self) -> Box<svg::Node> {
+        fn view(&self) -> Box<dyn svg::Node> {
             let mut t = svg::node::element::Text::new();
             t.append(svg::node::Text::new(self.step.clone()));
             Box::new(t)
@@ -20,7 +20,7 @@ mod svgir {
     }
 
     impl StepViewer for MultipleStep {
-        fn view(&self) -> Box<svg::Node> {
+        fn view(&self) -> Box<dyn svg::Node> {
             let mut g = svg::node::element::Group::new();
             let mut x = 0;
             for n in &self.steps[..] {
