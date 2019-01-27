@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/GiedriusS/civ.svg?branch=master)](https://travis-ci.org/GiedriusS/civ)
+
 # civ
 CI pipeline graphical viewer
 
