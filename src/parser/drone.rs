@@ -1,7 +1,7 @@
 extern crate serde_yaml;
 
-mod parser {
-    use super::serde_yaml::{Mapping, Value};
+pub mod parser {
+    use super::serde_yaml::Value;
     use ir::common::steps::{MultipleStep, SingleStep, Step};
 
     pub fn from_string(input: &str) -> Result<Vec<Box<Step>>, &'static str> {
