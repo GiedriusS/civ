@@ -5,6 +5,13 @@ use clap::{App, Arg};
 use std::fs::File;
 use std::io::prelude::*;
 
+pub mod ir;
+pub mod parser;
+pub mod renderer;
+
+use parser::drone::drone::from_string;
+use renderer::svg::svg::view_write_file;
+
 // Supported input formats
 arg_enum! {
     #[derive(PartialEq)]
@@ -65,6 +72,7 @@ fn main() {
         .get_matches();
 
     let inputfile = matches.value_of("INPUT");
+    let outputfile = matches.value_of("OUTPUT");
     let ifmt = matches.value_of("INPUTFMT");
     let ofmt = matches.value_of("OUTPUTFMT");
 
@@ -73,5 +81,8 @@ fn main() {
         let mut contents = String::new();
         f.read_to_string(&mut contents)
             .expect("something went wrong reading the file");
+
+        let results = from_string(&contents).unwrap();
+        view_write_file(results, outputfile.unwrap()).unwrap();
     }
 }

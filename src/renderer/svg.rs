@@ -1,8 +1,8 @@
 extern crate svg as svgext;
 
 pub mod svg {
-    use super::svgext::{node, Document};
-    use ir::common::steps::{MultipleStep, SingleStep, Step};
+    use super::svgext::Document;
+    use ir::common::steps::Step;
     use ir::svgir::svgir::StepViewer;
     use std::io;
 
@@ -19,7 +19,6 @@ pub mod svg {
                     let n = m.view();
                     document = document.add(*n);
                 }
-                _ => panic!("got an invalid type"),
             }
         }
 

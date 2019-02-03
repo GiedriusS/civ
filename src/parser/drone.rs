@@ -1,6 +1,6 @@
 extern crate serde_yaml;
 
-pub mod parser {
+pub mod drone {
     use super::serde_yaml::Value;
     use ir::common::steps::{MultipleStep, SingleStep, Step};
 
@@ -64,7 +64,7 @@ pub mod parser {
 
 #[cfg(test)]
 mod tests {
-    use super::parser;
+    use super::drone;
     use ir::common::steps::Step;
 
     #[test]
@@ -78,7 +78,7 @@ pipeline:
   step2:
     command: echo bye
 "#;
-        let result = parser::from_string(&base);
+        let result = drone::from_string(&base);
 
         match result {
             Ok(res) => {
@@ -101,7 +101,7 @@ pipeline:
     group: a
     command: echo bye
 "#;
-        let result = parser::from_string(&base);
+        let result = drone::from_string(&base);
 
         match result {
             Ok(res) => {
