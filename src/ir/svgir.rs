@@ -52,7 +52,7 @@ mod tests {
             step: "test".to_string(),
         };
         let n = step.view();
-        assert_eq!(n.to_string(), "<text>\ntest\n</text>");
+        assert_eq!(n.to_string(), "<g>\n<text>\ntest\n</text>\n</g>");
     }
 
     #[test]
