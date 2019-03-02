@@ -22,8 +22,11 @@ pub mod svg {
             ),
         );
 
-        for s in steps {
-            match *s {
+        let mut i = 0;
+        while i < steps.len() {
+            let s = &*steps[i];
+
+            match s {
                 Step::S(s) => {
                     let n = s.view();
                     let adjusted_node = n.set("transform", format!("translate ({}, 0)", cur_x));
@@ -35,7 +38,20 @@ pub mod svg {
                     document = document.add(adjusted_node);
                 }
             }
+
+            if i != (steps.len() - 1) {
+                let mut l = svg::node::element::Line::new();
+                l = l.set("stroke", "black");
+                l = l.set("stroke-dasharray", "4");
+                l = l.set("x1", cur_x + 30);
+                l = l.set("x2", cur_x + ADJUST_X_PER_STEP);
+                l = l.set("y1", -5);
+                l = l.set("y2", -5);
+                document = document.add(l);
+            }
+
             cur_x += ADJUST_X_PER_STEP;
+            i = i + 1;
         }
 
         document
