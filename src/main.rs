@@ -3,6 +3,7 @@ extern crate clap;
 
 use clap::{App, Arg};
 use std::fs::File;
+use std::io;
 use std::io::prelude::*;
 
 pub mod ir;
@@ -77,10 +78,16 @@ fn main() {
     let ofmt = matches.value_of("OUTPUTFMT");
 
     if ifmt == Some("DRONE") && ofmt == Some("SVG") {
-        let mut f = File::open(inputfile.unwrap()).expect("file not found");
         let mut contents = String::new();
-        f.read_to_string(&mut contents)
-            .expect("something went wrong reading the file");
+        if inputfile.unwrap() == "-" {
+            io::stdin()
+                .read_to_string(&mut contents)
+                .expect("failed to read stdin");
+        } else {
+            let mut f = File::open(inputfile.unwrap()).expect("file not found");
+            f.read_to_string(&mut contents)
+                .expect("failed to read specified file");
+        }
 
         let results = from_string(&contents).unwrap();
         view_write_file(results, outputfile.unwrap()).unwrap();
