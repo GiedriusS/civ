@@ -20,3 +20,21 @@ Written in Rust to study that new and upcoming language which gets rid of all me
 # Examples of input and output
 
 ## Simple pipeline
+### Definition
+
+```yaml
+---
+pipeline:
+    stepa:
+        command: echo hi
+    stepb:
+        command: echo bye
+```
+
+### Result
+
+![Result of simple pipeline](./examples/simple.png)
+
+# Caveats
+
+The way the SVG results look like varies with different renderers so it is not really recommended.

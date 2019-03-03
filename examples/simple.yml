@@ -1,0 +1,6 @@
+---
+pipeline:
+    stepa:
+        command: echo hi
+    stepb:
+        command: echo bye
